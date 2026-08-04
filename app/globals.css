@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+:root {
+  --background: #000000;
+  --surface: #080808;
+  --surface-1: #0d0d0d;
+  --surface-2: #131313;
+  --surface-3: #1c1c1c;
+  --border: #2a2a2a;
+  --accent: #FF4D2E;
+  --accent-hover: #FF6B4A;
+  --accent-soft: #FF8C73;
+  --accent-vivid: #FF2200;
+  --accent-tint: rgba(255, 77, 46, 0.15);
+  --text: #F1F1F1;
+  --text-secondary: #AAAAAA;
+  --text-muted: #555555;
+  --text-disabled: #333333;
+  --success: #34D399;
+  --warning: #FFBE32;
+  --danger: #FF4D2E;
+  --info: #5282FF;
+  --purple: #A78BFA;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-vivid: var(--accent-vivid);
+  --color-accent-tint: var(--accent-tint);
+  --color-text: var(--text);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-disabled: var(--text-disabled);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+  --color-purple: var(--purple);
+  
+  --animate-float: float 6s ease-in-out infinite;
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(var(--tw-rotate)); }
+    50% { transform: translateY(-20px) rotate(var(--tw-rotate)); }
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--font-geist-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* Hide scrollbar for clean UI elements */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
