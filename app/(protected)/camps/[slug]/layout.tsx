@@ -2,8 +2,9 @@
 
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
-import { getCampBySlug } from "@/lib/camp-mock-data";
+
 import { useCampStore } from "@/store/useCampStore";
+import { getCampBySlug } from "@/features/camp/utils/camp.utils";
 
 export default function CampSlugLayout({
   children,

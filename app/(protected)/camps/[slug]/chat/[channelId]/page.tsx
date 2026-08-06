@@ -9,7 +9,7 @@ import {
   MessageBubble,
   TypingIndicator,
 } from "@/components/ui/camp-components";
-import { getChannelById } from "@/lib/camp-mock-data";
+
 
 type RawMessage = {
   id: string;

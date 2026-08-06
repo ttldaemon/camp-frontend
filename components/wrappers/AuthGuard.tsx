@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { useMe } from "@/features/auth/hooks/auth.hooks";
 import { useRouter } from "next/navigation";

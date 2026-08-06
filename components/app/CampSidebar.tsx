@@ -10,9 +10,10 @@ import {
   SidebarSection,
   UserFooter,
 } from "@/components/ui/camp-components";
-import { USER_CAMPS, CHANNELS, PROJECT_CHANNELS } from "@/lib/camp-mock-data";
+import { CHANNELS, PROJECT_CHANNELS } from "@/lib/camp-mock-data";
 import { useCampStore } from "@/store/useCampStore";
 import { cn } from "@/utils/cn";
+import { useGetCamps } from "@/features/camp/hooks/camp.hooks";
 
 interface CampSidebarProps {
   slug?: string;
@@ -23,6 +24,8 @@ export function CampSidebar({ slug }: CampSidebarProps) {
   const router = useRouter();
   const activeCamp = useCampStore((s) => s.activeCamp);
   const isDiscover = pathname.startsWith("/discover");
+
+  const {data: USER_CAMPS} = useGetCamps()
 
   const camp = slug ? USER_CAMPS.find((c) => c.slug === slug) : activeCamp;
   const campName = isDiscover ? "Discover" : camp?.name ?? "Select a camp";

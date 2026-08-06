@@ -37,7 +37,7 @@ interface InputProps
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    { className, size, state, label, hint, error, leftIcon, rightIcon, id, ...props },
+    { className, size, state, label, hint, error, leftIcon, rightIcon, id, name, ...props },
     ref
   ) => {
     const inputId = id ?? label?.toLowerCase().replace(/\s+/g, '-')
@@ -62,6 +62,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             ref={ref}
             id={inputId}
+            name={name}
             className={inputVariants({
               size,
               state: resolvedState,

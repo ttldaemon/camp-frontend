@@ -1,7 +1,5 @@
 import { ReactNode } from "react";
 import { Button } from "./Button";
-import Github from "@/assets/Github";
-
 export default function OAuthBtn({ children }: { children: ReactNode }) {
   return (
     <Button

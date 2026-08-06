@@ -8,8 +8,8 @@ import {
   CampIconButton,
   CampAddButton,
 } from "@/components/ui/camp-components";
-import { USER_CAMPS } from "@/lib/camp-mock-data";
 import { useCampStore } from "@/store/useCampStore";
+import { useGetCamps } from "@/features/camp/hooks/camp.hooks";
 
 function showAside(pathname: string): boolean {
   if (pathname.startsWith("/discover")) return false;
@@ -29,6 +29,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const activeCamp = useCampStore((s) => s.activeCamp);
   const slug = campSlugFromPath(pathname) ?? activeCamp?.slug;
   const aside = showAside(pathname);
+
+  const {data: USER_CAMPS} = useGetCamps()
 
   return (
     <div className="h-screen flex overflow-hidden bg-background text-[13px] text-text-secondary leading-[1.55]">

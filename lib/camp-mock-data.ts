@@ -1,31 +1,5 @@
-import type { Camp, Channel } from "@/store/useCampStore";
+import { Channel } from "@/features/camp/types/camp.types";
 
-export const USER_CAMPS: Camp[] = [
-  {
-    id: "1",
-    slug: "hackathon-squad",
-    name: "Hackathon Squad",
-    memberCount: 12,
-    initials: "HS",
-    color: "#5282FF",
-  },
-  {
-    id: "2",
-    slug: "gssoc-core",
-    name: "GSSoC Core",
-    memberCount: 28,
-    initials: "GC",
-    color: "#A78BFA",
-  },
-  {
-    id: "3",
-    slug: "camp-os",
-    name: "Camp OS",
-    memberCount: 8,
-    initials: "CO",
-    color: "#34D399",
-  },
-];
 
 export const CHANNELS: Channel[] = [
   {
@@ -126,11 +100,3 @@ export const DISCOVER_CAMPS = [
     initials: "CB",
   },
 ];
-
-export function getCampBySlug(slug: string): Camp | undefined {
-  return USER_CAMPS.find((c) => c.slug === slug);
-}
-
-export function getChannelById(id: string): Channel | undefined {
-  return [...CHANNELS, ...PROJECT_CHANNELS].find((c) => c.id === id);
-}

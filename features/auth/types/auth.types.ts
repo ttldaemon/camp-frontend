@@ -8,21 +8,19 @@ export interface User {
 }
 
 export interface LoginRequest {
-    email: String,
-    password: String
+    email: string,
+    password: string
 }
 
-export interface LoginResponse {
+export interface AuthResponse {
+    token: string,
+    expiresIn: Number,
     user: User
 }
 
 export interface SignupRequest {
-    email: String,
-    password: String,
-    userName: String,
-    displayName: String
-}
-
-export interface SignupResponse {
-    user: User
+    email: string,
+    password: string,
+    userName: string,
+    displayName: string
 }

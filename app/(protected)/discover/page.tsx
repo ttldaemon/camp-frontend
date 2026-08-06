@@ -10,6 +10,7 @@ import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { DISCOVER_CAMPS } from "@/lib/camp-mock-data";
 import { cn } from "@/utils/cn";
+import NewCamp from "@/components/modals/NewCamp";
 
 const FILTERS = [
   "All",
@@ -22,6 +23,7 @@ const FILTERS = [
 
 export default function DiscoverPage() {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");
+  const [isNewCamp, setIsNewCamp] = useState(false);
   const [query, setQuery] = useState("");
 
   const camps = useMemo(() => {
@@ -49,7 +51,7 @@ export default function DiscoverPage() {
             leftIcon={<Search size={14} />}
           />
         </div>
-        <Button variant="primary" size="sm">
+        <Button variant="primary" size="sm" onClick={() => setIsNewCamp(true)}>
           New camp
         </Button>
       </MainHeader>
@@ -135,6 +137,10 @@ export default function DiscoverPage() {
             ))}
           </div>
         )}
+
+        {
+          isNewCamp && <NewCamp onClose={() => setIsNewCamp(false)} />
+        }
       </div>
     </>
   );

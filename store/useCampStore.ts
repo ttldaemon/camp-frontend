@@ -1,3 +1,4 @@
+import { Camp, Channel } from "@/features/camp/types/camp.types";
 import { create } from "zustand";
 
 export type ActivePage =
@@ -7,22 +8,7 @@ export type ActivePage =
   | "settings"
   | "discover";
 
-export interface Camp {
-  id: string;
-  slug: string;
-  name: string;
-  memberCount: number;
-  initials: string;
-  color: string;
-}
 
-export interface Channel {
-  id: string;
-  name: string;
-  type: "text" | "voice" | "announcement";
-  description?: string;
-  unreadCount?: number;
-}
 
 interface CampStore {
   activeCamp: Camp | null;

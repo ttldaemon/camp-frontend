@@ -3,7 +3,7 @@
 import { useState } from "react";
 import {
   Filter,
-  LayoutKanban,
+  Kanban,
   MoreHorizontal,
 } from "lucide-react";
 import { AvatarGroup } from "@/components/ui/Avatar";
@@ -96,7 +96,7 @@ export default function TasksPage() {
   return (
     <>
       <MainHeader
-        icon={LayoutKanban}
+        icon={Kanban}
         title="Task board"
         subtitle="camp-frontend"
       >

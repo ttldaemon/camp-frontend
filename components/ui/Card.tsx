@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 export function Card({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div className={cn(
-      "relative rounded-2xl border border-border bg-surface-1/50 backdrop-blur-sm overflow-hidden transition-colors hover:border-border/80", 
+      "relative rounded-2xl border border-border bg-surface-1/50 backdrop-blur-sm overflow-hidden transition-colors hover:border-border/80",
       className
     )}>
       <div className="absolute inset-0 bg-linear-to-b from-surface-3/10 to-transparent pointer-events-none" />
