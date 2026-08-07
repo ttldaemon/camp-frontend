@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createCamp, getCamps } from "../api/camp.api";
+import { useMe } from "@/features/auth/hooks/auth.hooks";
 
 
 export function useCreateCamp() {
@@ -16,9 +17,10 @@ export function useCreateCamp() {
   })
 }
 
-export function useGetCamps() {
+export function useGetCamps(userId?: string) {
   return useQuery({
-    queryKey: ["user-camps"],
-    queryFn: getCamps,
+    queryKey: ["user-camps", userId],
+    queryFn: () => getCamps(userId!),
+    enabled: !!userId,
   });
 }

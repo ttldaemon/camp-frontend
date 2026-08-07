@@ -1,6 +1,7 @@
-
 export enum Visibility {
-  PUBLIC, PRIVATE, INVITE_ONLY
+  PUBLIC,
+  PRIVATE,
+  INVITE_ONLY,
 }
 
 export interface NewCamp {
@@ -15,11 +16,17 @@ export interface NewCamp {
 
 export interface Camp {
   id: string;
-  slug: string;
   name: string;
+  slug: string;
+  description: string;
+  avatarUrl?: string;
+  visibility: Visibility;
+  ownerId: string;
+  tags: string[];
   memberCount: number;
-  initials: string;
-  color: string;
+  createdAt: Date;
+  updatedAt: Date;
+  // color: string; // TODO: save color also at the time of creation of a camp
 }
 
 export interface Channel {

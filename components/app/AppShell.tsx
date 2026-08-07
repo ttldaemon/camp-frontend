@@ -4,12 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CampSidebar } from "@/components/app/CampSidebar";
 import { ChatAside } from "@/components/app/ChatAside";
-import {
-  CampIconButton,
-  CampAddButton,
-} from "@/components/ui/camp-components";
+import { CampIconButton, CampAddButton } from "@/components/ui/camp-components";
 import { useCampStore } from "@/store/useCampStore";
 import { useGetCamps } from "@/features/camp/hooks/camp.hooks";
+import { Camp } from "@/features/camp/types/camp.types";
+import { getInitials } from "@/features/camp/utils/camp.utils";
+import { useMe } from "@/features/auth/hooks/auth.hooks";
 
 function showAside(pathname: string): boolean {
   if (pathname.startsWith("/discover")) return false;
@@ -30,7 +30,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const slug = campSlugFromPath(pathname) ?? activeCamp?.slug;
   const aside = showAside(pathname);
 
-  const {data: USER_CAMPS} = useGetCamps()
+  const { data: user } = useMe();
+  const userId = user?.user.id;
+  const { data: USER_CAMPS } = useGetCamps(userId);
+
+  console.log(USER_CAMPS);
 
   return (
     <div className="h-screen flex overflow-hidden bg-background text-[13px] text-text-secondary leading-[1.55]">
@@ -38,12 +42,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         className="w-14 shrink-0 flex flex-col items-center py-2 gap-1.5 bg-surface border-r border-border"
         aria-label="Camps"
       >
-        {USER_CAMPS.map((camp) => (
+        {USER_CAMPS && USER_CAMPS.map((camp: Camp) => (
           <Link key={camp.id} href={`/camps/${camp.slug}/chat/general`}>
             <CampIconButton
               label={camp.name}
-              initials={camp.initials}
-              color={camp.color}
+              initials={getInitials(camp.name)}
+              // color={camp.color}
               active={slug === camp.slug}
               hasNotification={camp.slug === "hackathon-squad"}
             />

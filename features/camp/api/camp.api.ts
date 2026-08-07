@@ -11,9 +11,7 @@ export async function createCamp(data: NewCamp) {
   }
 }
 
-export async function getCamps() {
-  const {data} = useMe()
-  const userId = data?.user.id
+export async function getCamps(userId: string) {
 
   if(userId == undefined) return; // TODO: do a better validation
 

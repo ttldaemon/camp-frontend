@@ -14,7 +14,7 @@ type NewCampProps = {
 };
 
 export default function NewCamp({ onClose }: NewCampProps) {
-  const [mounted, setMounted] = useState(false);
+
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
   const [description, setDescription] = useState("");
@@ -26,10 +26,6 @@ export default function NewCamp({ onClose }: NewCampProps) {
   const { data } = useMe()
 
   // if()
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -75,9 +71,6 @@ export default function NewCamp({ onClose }: NewCampProps) {
     })
   }
 
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <div
