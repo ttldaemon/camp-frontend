@@ -23,3 +23,13 @@ export async function getCamps(userId: string) {
     console.error(error);
   }
 }
+
+
+export async function discoverCamps() {
+  try {
+    const res = await api.get("/camps/discover")
+    return res.data
+  } catch (error: unknown) {
+	console.error(error);
+  }
+}

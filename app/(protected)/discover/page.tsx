@@ -8,9 +8,13 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
-import { DISCOVER_CAMPS } from "@/lib/camp-mock-data";
+// import { DISCOVER_CAMPS } from "@/lib/camp-mock-data";
 import { cn } from "@/utils/cn";
 import NewCamp from "@/components/modals/NewCamp";
+import { useDiscoverCamps } from "@/features/camp/hooks/camp.hooks";
+import { Camp } from "@/features/camp/types/camp.types";
+import { getInitials } from "@/features/camp/utils/camp.utils";
+import { useMe } from "@/features/auth/hooks/auth.hooks";
 
 const FILTERS = [
   "All",
@@ -26,8 +30,13 @@ export default function DiscoverPage() {
   const [isNewCamp, setIsNewCamp] = useState(false);
   const [query, setQuery] = useState("");
 
+  const { data: DISCOVER_CAMPS } = useDiscoverCamps()
+  const { data: user } = useMe()
+
+  const userId = user?.user.id ?? ""
+
   const camps = useMemo(() => {
-    return DISCOVER_CAMPS.filter((c) => {
+    return DISCOVER_CAMPS.filter((c: Camp) => {
       const matchesFilter =
         filter === "All" || c.tags.some((t) => t === filter);
       const q = query.trim().toLowerCase();
@@ -37,7 +46,7 @@ export default function DiscoverPage() {
         c.description.toLowerCase().includes(q);
       return matchesFilter && matchesQuery;
     });
-  }, [filter, query]);
+  }, [filter, query, DISCOVER_CAMPS]);
 
   return (
     <>
@@ -84,7 +93,7 @@ export default function DiscoverPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-            {camps.map((camp) => (
+            {camps.map((camp: Camp) => (
               <Card
                 key={camp.id}
                 className="rounded-lg border-border bg-surface-1 hover:border-surface-3 transition-colors duration-150 p-3"
@@ -92,11 +101,11 @@ export default function DiscoverPage() {
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <div
                     className="w-8 h-8 rounded-md flex items-center justify-center text-[11px] font-medium text-white shrink-0"
-                    style={{ background: camp.color }}
+                    // style={{ background: camp.color }}
                   >
-                    {camp.initials}
+                    {getInitials(camp.name)}
                   </div>
-                  {camp.joined ? (
+                  {camp.membersIds.includes(userId) ? (
                     <Badge variant="accent" size="sm">
                       joined
                     </Badge>
@@ -130,7 +139,7 @@ export default function DiscoverPage() {
                   </div>
                   <span className="flex items-center gap-1 text-[10px] text-text-muted shrink-0">
                     <Users size={12} />
-                    {camp.members}
+                    {camp.memberCount}
                   </span>
                 </div>
               </Card>

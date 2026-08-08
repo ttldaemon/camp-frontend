@@ -63,7 +63,7 @@ export default function NewCamp({ onClose }: NewCampProps) {
 
     const tags = tagsStr.split(",").map(item => item.trim())
 
-    mutate({name, slug, description, avatarUrl, visibility, ownerId: data?.user.id, tags}, {
+    mutate({name, slug, description, avatarUrl, visibility, ownerId: data?.user.id ?? "guest", tags}, {
       onSuccess: () => {
         console.log("New Camp created")
         onClose()

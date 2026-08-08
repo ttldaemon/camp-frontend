@@ -24,6 +24,7 @@ export interface Camp {
   ownerId: string;
   tags: string[];
   memberCount: number;
+  membersIds: string[];
   createdAt: Date;
   updatedAt: Date;
   // color: string; // TODO: save color also at the time of creation of a camp
