@@ -1,4 +1,3 @@
-
 import { useGetCamps } from "../hooks/camp.hooks";
 import { Channel } from "diagnostics_channel";
 import { Camp } from "../types/camp.types";
@@ -17,14 +16,15 @@ import { CHANNELS, PROJECT_CHANNELS } from "@/lib/camp-mock-data";
 // }
 
 export function getCampBySlug(slug: string): Camp | undefined {
-  return 
+  return;
 }
 
 export function getChannelById(id: string): Channel | undefined {
-  return ;
+  return;
 }
 
 export function getInitials(name: string) {
-  const words = name.split(" ");
-  return words[0].charAt(0).toUpperCase();
+  const words = name.split(/\s+/);
+  if (words.length === 1) return words[0].substring(0, 2).toUpperCase();
+  return words[0].charAt(0).toUpperCase() + words[1].charAt(0).toUpperCase();
 }

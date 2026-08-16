@@ -25,6 +25,9 @@ const FILTERS = [
   "Hackathon",
 ] as const;
 
+
+// TODO: This page will show random camps, not just the user's joined camps.
+
 export default function DiscoverPage() {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("All");
   const [isNewCamp, setIsNewCamp] = useState(false);
@@ -36,16 +39,19 @@ export default function DiscoverPage() {
   const userId = user?.user.id ?? ""
 
   const camps = useMemo(() => {
-    return DISCOVER_CAMPS.filter((c: Camp) => {
-      const matchesFilter =
-        filter === "All" || c.tags.some((t) => t === filter);
-      const q = query.trim().toLowerCase();
-      const matchesQuery =
-        !q ||
-        c.name.toLowerCase().includes(q) ||
-        c.description.toLowerCase().includes(q);
-      return matchesFilter && matchesQuery;
-    });
+    if (DISCOVER_CAMPS !== undefined) {
+      return DISCOVER_CAMPS.filter((c: Camp) => {
+        const matchesFilter =
+          filter === "All" || c.tags.some((t) => t === filter);
+        const q = query.trim().toLowerCase();
+        const matchesQuery =
+          !q ||
+          c.name.toLowerCase().includes(q) ||
+          c.description.toLowerCase().includes(q);
+        return matchesFilter && matchesQuery;
+      });
+    }
+    return [];
   }, [filter, query, DISCOVER_CAMPS]);
 
   return (
@@ -105,7 +111,7 @@ export default function DiscoverPage() {
                   >
                     {getInitials(camp.name)}
                   </div>
-                  {camp.membersIds.includes(userId) ? (
+                  {camp.membersIds && camp.membersIds.includes(userId) ? (
                     <Badge variant="accent" size="sm">
                       joined
                     </Badge>

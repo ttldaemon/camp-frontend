@@ -35,7 +35,7 @@ export function CampSidebar({ slug }: CampSidebarProps) {
   const activeChannelId = channelMatch?.[1];
 
   return (
-    <aside className="w-[200px] shrink-0 flex flex-col bg-surface border-r border-border h-full">
+    <aside className="w-50 shrink-0 flex flex-col bg-surface border-r border-border h-full">
       <button
         type="button"
         className="flex items-center gap-1.5 px-3 py-2.5 border-b border-border hover:bg-surface-1 transition-colors duration-150 text-left w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
@@ -115,7 +115,7 @@ export function CampSidebar({ slug }: CampSidebarProps) {
               type="button"
               onClick={() => router.push("/discover")}
               className={cn(
-                "w-full text-left mx-1 px-2 py-[5px] rounded-xs text-[13px] transition-colors duration-150",
+                "w-full text-left mx-1 px-2 py-1.25 rounded-xs text-[13px] transition-colors duration-150",
                 "bg-surface-2 text-text"
               )}
               style={{ width: "calc(100% - 8px)" }}

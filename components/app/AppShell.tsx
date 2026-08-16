@@ -49,7 +49,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               initials={getInitials(camp.name)}
               // color={camp.color}
               active={slug === camp.slug}
-              hasNotification={camp.slug === "hackathon-squad"}
+              hasNotification={camp.slug === "bah 2026"}
             />
           </Link>
         ))}
