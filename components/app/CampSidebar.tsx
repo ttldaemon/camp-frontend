@@ -25,7 +25,7 @@ export function CampSidebar({ slug }: CampSidebarProps) {
   const activeCamp = useCampStore((s) => s.activeCamp);
   const isDiscover = pathname.startsWith("/discover");
 
-  const {data: USER_CAMPS} = useGetCamps()
+  const { data: USER_CAMPS } = useGetCamps()
 
   const camp = slug ? USER_CAMPS.find((c) => c.slug === slug) : activeCamp;
   const campName = isDiscover ? "Discover" : camp?.name ?? "Select a camp";

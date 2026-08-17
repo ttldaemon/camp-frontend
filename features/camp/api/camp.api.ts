@@ -33,3 +33,14 @@ export async function discoverCamps() {
 	console.error(error);
   }
 }
+
+
+export async function getChannelsOfCamp(campId: string) {
+  try {
+    const res = await api.get(`/camps/channels/${campId}`)
+    return res.data
+  } catch (error: unknown) {
+    console.error(error);
+    return null;
+  }
+}

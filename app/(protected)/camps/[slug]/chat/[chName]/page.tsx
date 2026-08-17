@@ -9,6 +9,7 @@ import {
   MessageBubble,
   TypingIndicator,
 } from "@/components/ui/camp-components";
+import { getChannelByName } from "@/features/camp/utils/camp.utils";
 
 
 type RawMessage = {
@@ -71,9 +72,8 @@ function groupCompact(prev: RawMessage | undefined, curr: RawMessage): boolean {
 
 export default function ChatChannelPage() {
   const params = useParams();
-  const channelId = params.channelId as string;
-  const channel = getChannelById(channelId);
-  const channelName = channel?.name ?? channelId;
+  const chName = params.chName as string;
+  const channel = getChannelByName(chName);
 
   const withCompact = useMemo(() => {
     return MESSAGES.map((msg, i) => ({
@@ -88,7 +88,7 @@ export default function ChatChannelPage() {
     <div className="flex flex-col h-full min-h-0">
       <MainHeader
         icon={Hash}
-        title={channelName}
+        title={chName}
         subtitle={channel?.description ?? "Camp channel"}
       >
         <button

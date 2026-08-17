@@ -19,7 +19,7 @@ export function getCampBySlug(slug: string): Camp | undefined {
   return;
 }
 
-export function getChannelById(id: string): Channel | undefined {
+export function getChannelByName(id: string): Channel | undefined {
   return;
 }
 

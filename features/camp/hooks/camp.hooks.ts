@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createCamp, discoverCamps, getCamps } from "../api/camp.api";
+import { createCamp, discoverCamps, getCamps, getChannelsOfCamp } from "../api/camp.api";
 import { useMe } from "@/features/auth/hooks/auth.hooks";
 
 
@@ -29,5 +29,13 @@ export function useDiscoverCamps() {
   return useQuery({
     queryKey: ["discover-camps"],
     queryFn: discoverCamps,
+  })
+}
+
+export function useGetChannelsOfCamp(campId?: string) {
+  return useQuery({
+    queryKey: ["channels", campId],
+    queryFn: () => getChannelsOfCamp(campId!),
+    enabled: !!campId
   })
 }
