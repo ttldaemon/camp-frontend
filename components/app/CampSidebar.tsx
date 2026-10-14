@@ -68,7 +68,7 @@ export function CampSidebar({ slug }: CampSidebarProps) {
               {CHANNELS?.map((ch: Channel) => (
                 <Link
                   key={ch.id}
-                  href={`/camps/${slug}/chat/${ch.id}`}
+                  href={`/camps/${slug}/chat/${ch.name}`}
                   className="block"
                 >
                   <ChannelItem

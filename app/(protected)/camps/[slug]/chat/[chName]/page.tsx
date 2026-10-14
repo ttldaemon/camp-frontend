@@ -9,18 +9,13 @@ import {
   MessageBubble,
   TypingIndicator,
 } from "@/components/ui/camp-components";
-import { getChannelByName } from "@/features/camp/utils/camp.utils";
-
-
-type RawMessage = {
-  id: string;
-  authorName: string;
-  authorColor: string;
-  timestamp: string;
-  day: string;
-  content: string;
-  taskEmbed?: { title: string; status: string; priority: string };
-};
+import { RawMessage } from "@/features/chats/chats.types";
+import {
+  useGetCamps,
+  useGetChannelsOfCamp,
+} from "@/features/camp/hooks/camp.hooks";
+import { useMe } from "@/features/auth/hooks/auth.hooks";
+import { Camp, Channel } from "@/features/camp/types/camp.types";
 
 const MESSAGES: RawMessage[] = [
   {
@@ -29,7 +24,8 @@ const MESSAGES: RawMessage[] = [
     authorColor: "#A78BFA",
     timestamp: "9:02 AM",
     day: "Today",
-    content: "Pushed the STOMP reconnect logic — can someone sanity-check on staging?",
+    content:
+      "Pushed the STOMP reconnect logic — can someone sanity-check on staging?",
   },
   {
     id: "2",
@@ -73,7 +69,16 @@ function groupCompact(prev: RawMessage | undefined, curr: RawMessage): boolean {
 export default function ChatChannelPage() {
   const params = useParams();
   const chName = params.chName as string;
-  const channel = getChannelByName(chName);
+  const slug = params.slug as string;
+
+  const { data: ME } = useMe();
+  const { data: USER_CAMPS } = useGetCamps(ME?.user.id);
+
+  const camp: Camp = USER_CAMPS?.find((c: Camp) => c.slug === slug);
+
+  const { data: CHANNELS, error } = useGetChannelsOfCamp(camp?.id);
+
+  const channel = CHANNELS?.find((c: Channel) => c.name === chName);
 
   const withCompact = useMemo(() => {
     return MESSAGES.map((msg, i) => ({
@@ -153,7 +158,7 @@ export default function ChatChannelPage() {
         </div>
       </div>
 
-      <ChatInput channelName={channelName} />
+      <ChatInput channelName={chName} />
     </div>
   );
 }

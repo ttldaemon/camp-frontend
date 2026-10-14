@@ -19,9 +19,6 @@ export function getCampBySlug(slug: string): Camp | undefined {
   return;
 }
 
-export function getChannelByName(id: string): Channel | undefined {
-  return;
-}
 
 export function getInitials(name: string) {
   const words = name.split(/\s+/);

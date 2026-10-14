@@ -38,6 +38,7 @@ export async function discoverCamps() {
 export async function getChannelsOfCamp(campId: string) {
   try {
     const res = await api.get(`/camps/channels/${campId}`)
+    console.log(res.data)
     return res.data
   } catch (error: unknown) {
     console.error(error);
