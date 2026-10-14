@@ -13,7 +13,12 @@ import {
 import { CHANNELS, PROJECT_CHANNELS } from "@/lib/camp-mock-data";
 import { useCampStore } from "@/store/useCampStore";
 import { cn } from "@/utils/cn";
-import { useGetCamps } from "@/features/camp/hooks/camp.hooks";
+import {
+  useGetCamps,
+  useGetChannelsOfCamp,
+} from "@/features/camp/hooks/camp.hooks";
+import { Camp, Channel } from "@/features/camp/types/camp.types";
+import { useMe } from "@/features/auth/hooks/auth.hooks";
 
 interface CampSidebarProps {
   slug?: string;
@@ -25,10 +30,15 @@ export function CampSidebar({ slug }: CampSidebarProps) {
   const activeCamp = useCampStore((s) => s.activeCamp);
   const isDiscover = pathname.startsWith("/discover");
 
-  const { data: USER_CAMPS } = useGetCamps()
+  const { data: ME } = useMe()
 
-  const camp = slug ? USER_CAMPS.find((c) => c.slug === slug) : activeCamp;
-  const campName = isDiscover ? "Discover" : camp?.name ?? "Select a camp";
+  const { data: USER_CAMPS, isLoading } = useGetCamps(ME?.user.id);
+  const camp = slug
+    ? USER_CAMPS?.find((c: Camp) => c.slug === slug)
+    : activeCamp;
+  const { data: CHANNELS, error } = useGetChannelsOfCamp(camp?.id);
+
+  const campName = isDiscover ? "Discover" : (camp?.name ?? "Select a camp");
   const memberCount = camp?.memberCount ?? 0;
 
   const channelMatch = pathname.match(/\/chat\/([^/]+)/);
@@ -44,7 +54,9 @@ export function CampSidebar({ slug }: CampSidebarProps) {
           {campName}
         </span>
         {!isDiscover && (
-          <span className="text-[11px] text-text-muted shrink-0">{memberCount}</span>
+          <span className="text-[11px] text-text-muted shrink-0">
+            {memberCount}
+          </span>
         )}
         <ChevronDown size={14} className="text-text-muted shrink-0" />
       </button>
@@ -53,7 +65,7 @@ export function CampSidebar({ slug }: CampSidebarProps) {
         {!isDiscover && slug && (
           <>
             <SidebarSection label="Channels">
-              {CHANNELS.map((ch) => (
+              {CHANNELS?.map((ch: Channel) => (
                 <Link
                   key={ch.id}
                   href={`/camps/${slug}/chat/${ch.id}`}
@@ -68,7 +80,7 @@ export function CampSidebar({ slug }: CampSidebarProps) {
                 </Link>
               ))}
             </SidebarSection>
-            <SidebarSection label="Projects">
+            {/*<SidebarSection label="Projects">
               {PROJECT_CHANNELS.map((ch) => (
                 <Link
                   key={ch.id}
@@ -83,7 +95,7 @@ export function CampSidebar({ slug }: CampSidebarProps) {
                   />
                 </Link>
               ))}
-            </SidebarSection>
+            </SidebarSection>*/}
             <SidebarSection label="Camp">
               <Link href={`/camps/${slug}/tasks`} className="block">
                 <ChannelItem
@@ -116,7 +128,7 @@ export function CampSidebar({ slug }: CampSidebarProps) {
               onClick={() => router.push("/discover")}
               className={cn(
                 "w-full text-left mx-1 px-2 py-1.25 rounded-xs text-[13px] transition-colors duration-150",
-                "bg-surface-2 text-text"
+                "bg-surface-2 text-text",
               )}
               style={{ width: "calc(100% - 8px)" }}
             >
